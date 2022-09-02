@@ -1,0 +1,44 @@
+.fruit-container{
+    width: 75px;
+    height: 75px;
+    background-color: greenyellow;
+    animation-name: buttom-to-top;
+    animation-duration: 3s;
+    position: absolute;
+}
+
+@keyframes left-to-right{
+    from{
+        left: 0%;
+    }
+    to{
+        left: 100%;
+    }
+}
+@keyframes top-to-buttom{
+    from{
+        top: 0%;
+    }
+    to{
+        top: 100%;
+    }
+}
+@keyframes right-to-left{
+    from{
+        left: 100%;
+    }
+    to{
+        left: 0%;
+    }
+}
+@keyframes buttom-to-top{
+    0%{
+        bottom: 0%;
+    }
+    50%{
+        bottom: 75%;
+    }
+    100%{
+        bottom: 0%;
+    }
+}
