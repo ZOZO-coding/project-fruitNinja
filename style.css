@@ -1,10 +1,5 @@
-.fruit-container{
-    width: 75px;
-    height: 75px;
-    background-color: greenyellow;
-    animation-name: buttom-to-top;
-    animation-duration: 3s;
-    position: absolute;
+html{
+    cursor: url(./cursor.cur), auto;
 }
 
 @keyframes left-to-right{
@@ -15,7 +10,7 @@
         left: 100%;
     }
 }
-@keyframes top-to-buttom{
+@keyframes top-to-bottom{
     from{
         top: 0%;
     }
@@ -31,14 +26,91 @@
         left: 0%;
     }
 }
-@keyframes buttom-to-top{
+@keyframes bottom-to-top{
     0%{
         bottom: 0%;
+        left: 10%;
     }
     50%{
         bottom: 75%;
+        left: 30%;
     }
     100%{
         bottom: 0%;
+        left: 50%;
     }
+}
+
+.top{
+    width: 50vw;
+    height: 2vh;
+    background-color: black;
+    margin-left: 25vw;
+    position: absolute;
+    top: 0%;
+}
+
+.bottom{
+    width: 25vw;
+    height: 2vh;
+    background-color: black;
+    margin-left: 0;
+    position: absolute;
+    bottom: 0%;
+}
+
+.main-container{
+    position: absolute;
+}
+
+.left{
+    width: 2vh;
+    height: 30vh;
+    background-color: black;
+    position: absolute;
+    left: 0%;
+    margin-top: 10vh;
+}
+
+.right{
+    width: 2vh;
+    height: 30vh;
+    background-color: black;
+    position: absolute;
+    right: 0%;
+    margin-top: 10vh;
+}
+
+.score-container{
+    position: relative;
+}
+
+.winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+    z-index: 3;
+}
+
+.winning-message button{
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: 0.25em, 0.5em;
+    cursor: pointer;
+}
+
+.winning-message button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
 }

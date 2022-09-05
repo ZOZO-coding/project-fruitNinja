@@ -9,10 +9,25 @@
     <link rel="shortcut icon" href="#">
 
 <body>
-    <h1>Fruit Ninja</h1>
-    <h2></h2>
+    <div class="top"></div>
+    <h1>Zoey Ninja</h1>
+    <div class="score-container">
+        <h2 class="score-keeper"">Current Score: 0</h3>
+    </div>
+    <button type="button" class="player1-start-game">Player 1 start game</button>
+    <button type="button" class="player2-start-game">Player 2 start game</button>
 
-    <div class="fruit-container"></div>
+    <div class="main-contianer">
+        <div class="fruit-container"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+    <div class="bottom"></div>
+
+    <div class="winning-message">
+        <div class="winning-message-text"></div>
+        <button type="button" id="restart-button">restart</button>
+    </div>
 
     <script src="app.js"></script>
 </body>
