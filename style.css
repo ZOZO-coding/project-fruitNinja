@@ -2,12 +2,23 @@ html{
     cursor: url(./cursor.cur), auto;
 }
 
+body{
+    background: url('./fruit-ninja-background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
 @keyframes left-to-right{
-    from{
+    0%{
         left: 0%;
     }
-    to{
-        left: 100%;
+    100%{
+        left: 95%;
     }
 }
 @keyframes top-to-bottom{
@@ -15,15 +26,15 @@ html{
         top: 0%;
     }
     to{
-        top: 100%;
+        top: 95%;
     }
 }
 @keyframes right-to-left{
     from{
-        left: 100%;
+        right: 0%;
     }
     to{
-        left: 0%;
+        right: 95%;
     }
 }
 @keyframes bottom-to-top{
@@ -34,26 +45,28 @@ html{
     50%{
         bottom: 75%;
         left: 30%;
+        transform: rotate(180deg);
     }
     100%{
         bottom: 0%;
         left: 50%;
+        transform: rotate(360deg);
     }
 }
 
 .top{
-    width: 50vw;
+    /* width: 50vw;
     height: 2vh;
-    background-color: black;
+    background-color: black; */
     margin-left: 25vw;
     position: absolute;
     top: 0%;
 }
 
 .bottom{
-    width: 25vw;
+    /* width: 25vw;
     height: 2vh;
-    background-color: black;
+    background-color: black; */
     margin-left: 0;
     position: absolute;
     bottom: 0%;
@@ -64,18 +77,18 @@ html{
 }
 
 .left{
-    width: 2vh;
+    /* width: 2vh;
     height: 30vh;
-    background-color: black;
+    background-color: black; */
     position: absolute;
     left: 0%;
     margin-top: 10vh;
 }
 
 .right{
-    width: 2vh;
+    /* width: 2vh;
     height: 30vh;
-    background-color: black;
+    background-color: black; */
     position: absolute;
     right: 0%;
     margin-top: 10vh;
@@ -107,6 +120,7 @@ html{
     border: 1px solid black;
     padding: 0.25em, 0.5em;
     cursor: pointer;
+    margin: 10px 0;
 }
 
 .winning-message button:hover {
