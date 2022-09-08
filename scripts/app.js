@@ -1,40 +1,42 @@
-const spawnDirections = [spawnTop, spawnBottom, spawnLeft, spawnRight];
+import { spawnDirections } from "./spawnDirection.js";
+import { fruits } from "./fruit.js";
+export const randNumGenerator2 = (num) => Math.floor(Math.random() * num)
 
-const randNumGenerator = (num) => Math.floor(Math.random() * num) + 1
-const randNumGenerator2 = (num) => Math.floor(Math.random() * num)
-
+// selectors
 const scoreKeeper = document.querySelector('.score-keeper');
-let currentScore = 0;
-let currentPlayer;
-
-let player1Record = 0;
-let player2Record = 0;
-
 const player1RecordBoard = document.getElementById('player1-record');
 player1RecordBoard.innerText = "Player 1 Best Score: " + localStorage.getItem('player1');
 const player2RecordBoard = document.getElementById('player2-record');
 player2RecordBoard.innerText = "Player 2 Best Score: " + localStorage.getItem('player2');
-
-let level = 1;
-const currentLevel = document.querySelector('.current-level');
-
-let countDownId;
-let spawnItemsId;
-
 const player1StartBtn = document.querySelector('.player1-start-game');
 const player2StartBtn = document.querySelector('.player2-start-game');
 const restartBtn = document.getElementById('restart-button');
 const continueBtn = document.getElementById('continue-button');
+const currentLevel = document.querySelector('.current-level');
+const winningMessageElement = document.querySelector('.winning-message');
+const winningMessageText = document.querySelector('.winning-message-text');
+
+// variables:
+let level = 1;
+let countDownId;
+let spawnItemsId;
+let currentPlayer;
+let player1Record = 0;
+let player2Record = 0;
+let currentScore = 0;
+const sliceSound = document.createElement('AUDIO');
+sliceSound.setAttribute('src', '../asset/slice.mp3');
+const bombSound = document.createElement('AUDIO');
+bombSound.setAttribute('src', '../asset/bomb.mp3');
+
+// button event listenrs
 player1StartBtn.addEventListener('click', startGame);
 player2StartBtn.addEventListener('click', startGame);
 restartBtn.addEventListener('click', () => location.reload());
 
-const winningMessageElement = document.querySelector('.winning-message');
-const winningMessageText = document.querySelector('.winning-message-text');
-
+// countdown timer module
 let startingTime = 20;
 const countdown = document.querySelector('.timer');
-
 function updateCountdown() {
     startingTime--;
     countdown.innerText = `Time remaining: ${startingTime}s`;
@@ -46,9 +48,11 @@ function updateCountdown() {
     }
 }
 
+// main section: create fruits, spawn fruits, slice fruits, and let fruits disappear, same for bombs
 function createFruit() {
     const fruit = document.createElement('img');
-    fruit.setAttribute("src", "./fruit-img/apple.png")
+    let randFruitSrc = fruits[randNumGenerator2(9)];
+    fruit.setAttribute("src", randFruitSrc);
     fruit.style.width = '75px';
     fruit.style.height = '75px';
     fruit.style.position = 'absolute';
@@ -62,7 +66,7 @@ function createFruit() {
 
 function createBomb() {
     const bomb = document.createElement('img');
-    bomb.setAttribute("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd1P6gQPNNugzu-rURQzQ_mXtBzwwW-W1VeJtCdao1KxTxgr49HNYIyMAdIH0TPrLj&usqp=CAU")
+    bomb.setAttribute("src", "./fruit-img/Bomb.webp")
     bomb.style.width = '75px';
     bomb.style.height = '75px';
     // bomb.style.backgroundColor = 'red';
@@ -77,7 +81,8 @@ function createBomb() {
 
 function createBonusFruit() {
     const fruit = document.createElement('img');
-    fruit.setAttribute("src", "https://icon2.cleanpng.com/20180510/olw/kisspng-watermelon-computer-icons-fruit-5af4494f7c3d72.6103602815259589915089.jpg")
+    fruit.setAttribute("src", "./fruit-img/Pumpkin.svg");
+    fruit.setAttribute("id", "bonus");
     fruit.style.width = '125px';
     fruit.style.height = '125px';
     fruit.style.position = 'absolute';
@@ -89,48 +94,10 @@ function createBonusFruit() {
     fruit.addEventListener('pointerover', sliceFruit)
 }
 
-function spawnTop(fruit) {
-    const spawnPoint = randNumGenerator2(50) + 25;
-    fruit.style.marginLeft = `${spawnPoint}vw`;
-    fruit.style.animationName = 'top-to-bottom';
-}
-
-function spawnBottom(fruit) {
-    const spawnPoint = randNumGenerator2(25);
-    fruit.style.marginLeft = `${spawnPoint}vw`;
-    fruit.style.animationName = 'bottom-to-top';
-}
-
-function spawnLeft(fruit) {
-    const spawnPoint = randNumGenerator2(30) + 10;
-    fruit.style.marginTop = `${spawnPoint}vh`;
-    fruit.style.animationName = 'left-to-right';
-}
-
-function spawnRight(fruit) {
-    const spawnPoint = randNumGenerator2(30) + 10;
-    fruit.style.marginTop = `${spawnPoint}vh`;
-    fruit.style.animationName = 'right-to-left'
-}
-
 function fruitDisappear(fruit) {
     setTimeout(() => {
         fruit.style.display = 'none';
     }, 2000)
-}
-
-function sliceFruit(e) {
-    // if you hit a target, then change the target src to a sliced version
-    // create a timeout and then set it to disappar in 1s
-    // otherwise, just set it to disappear in 3s
-    if (e.target) {
-        e.target.setAttribute("src", "./fruit-img/watermelon.jpg");
-        setTimeout(() => {
-            e.target.style.display = 'none';
-        }, 500)
-    } 
-    currentScore += 1;
-    scoreKeeper.innerText = `Current Score: ${currentScore}`;
 }
 
 const delaySpawn = (delay) => {
@@ -151,6 +118,25 @@ const delaySpawnBomb = (delay) => {
     })
 }
 
+function sliceFruit(e) {
+    // if you hit a target, then change the target src to a sliced version
+    // create a timeout and then set it to disappar in 1s
+    // otherwise, just set it to disappear in 3s
+    if (e.target.id != 'bonus') {
+        e.target.setAttribute("src", "../fruit-img/plus-one.svg");
+        setTimeout(() => {
+            e.target.style.display = 'none';
+        }, 500)
+    } else {
+        setTimeout(() => {
+            e.target.style.delay = 'none'
+        }, 1000)
+    }
+    sliceSound.play();
+    currentScore += 1;
+    scoreKeeper.innerText = `Current Score: ${currentScore}`;
+}
+
 const delayBonusFruit = (delay) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -160,6 +146,7 @@ const delayBonusFruit = (delay) => {
     })
 }
 
+// gamming mechanism:
 const shootFruits = async(num) => {
     for (let i = 0; i < num; i++) {
         await delaySpawn(1000);
@@ -183,9 +170,19 @@ function startGame(e) {
     scoreKeeper.innerText = "Current Score: 0";
 }
 
+const levelDifficult = (level) => {
+    let timeInterval = 1000 - level * 100;
+    spawnItemsId = setInterval(() => {
+        let chance = Math.random();
+        chance >= 0.8 ? shootBombs(level) : shootFruits(1);
+        chance > 0.45 && chance < 0.5 ? shootBonusFruit() : shootFruits;
+    }, timeInterval)
+}
+
 function gameOver() {
     scoreKeeper.innerText = `Current Score: ${currentScore}`;
     continueBtn.style.display = 'none';
+    bombSound.play();
     displayEndGameMsg();
     clearInterval(countDownId);
     clearInterval(spawnItemsId);
@@ -215,6 +212,7 @@ function displayEndGameMsg() {
     winningMessageElement.style.display = 'flex';
 }
 
+// continue to play and increase level difficulties: 
 const continuePlay = () => {
     // remove the winning message display
     winningMessageElement.style.display = 'none';
@@ -225,14 +223,4 @@ const continuePlay = () => {
     levelDifficult(level);
     currentLevel.innerText = `Current Level: ${level}`;
 }
-
 continueBtn.addEventListener('click', continuePlay)
-
-const levelDifficult = (level) => {
-    let timeInterval = 1000 - level * 100;
-    spawnItemsId = setInterval(() => {
-        let chance = Math.random();
-        chance >= 0.8 ? shootBombs(level) : shootFruits(1);
-        chance > 0.4 && chance < 0.5 ? shootBonusFruit() : shootFruits;
-    }, timeInterval)
-}
