@@ -128,3 +128,15 @@ body{
     color: white;
     border-color: white;
 }
+
+.record-board{
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    right: 10vw;
+}
+
+.record-board div{
+    margin: 10px 30px;
+    font-size: 1.5rem;
+}

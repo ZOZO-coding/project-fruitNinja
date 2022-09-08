@@ -5,11 +5,18 @@ const randNumGenerator2 = (num) => Math.floor(Math.random() * num)
 
 const scoreKeeper = document.querySelector('.score-keeper');
 let currentScore = 0;
-let currentPlayer = 'player1';
+let currentPlayer;
+
+let player1Record = 0;
+let player2Record = 0;
+
+const player1RecordBoard = document.getElementById('player1-record');
+player1RecordBoard.innerText = "Player 1 Best Score: " + localStorage.getItem('player1');
+const player2RecordBoard = document.getElementById('player2-record');
+player2RecordBoard.innerText = "Player 2 Best Score: " + localStorage.getItem('player2');
 
 let level = 1;
 const currentLevel = document.querySelector('.current-level');
-currentLevel.innerText = `Current Level: ${level}`;
 
 let countDownId;
 let spawnItemsId;
@@ -182,8 +189,25 @@ function gameOver() {
     displayEndGameMsg();
     clearInterval(countDownId);
     clearInterval(spawnItemsId);
+
+    updateRecordBoard();
+
     currentScore = 0;
     scoreKeeper.innerText = `Current Score: ${currentScore}`;
+}
+
+function updateRecordBoard() {
+    // check if record board needs update:
+    if (currentPlayer === 'player1' && currentScore > player1Record) {
+        localStorage.setItem(`${currentPlayer}`, currentScore);
+        player1Record = parseInt(localStorage.getItem('player1'));
+        player1RecordBoard.innerText = `Player 1 Best Score: ${player1Record}`;
+    }
+    if (currentPlayer === 'player2' && currentScore > player2Record) {
+        localStorage.setItem(`${currentPlayer}`, currentScore);
+        player2Record = parseInt(localStorage.getItem('player2'));
+        player2RecordBoard.innerText = `Player 2 Best Score: ${player2Record}`;
+    }
 }
 
 function displayEndGameMsg() {
@@ -199,6 +223,7 @@ const continuePlay = () => {
     countDownId = setInterval(updateCountdown, 1000);
     level++;
     levelDifficult(level);
+    currentLevel.innerText = `Current Level: ${level}`;
 }
 
 continueBtn.addEventListener('click', continuePlay)
