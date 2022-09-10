@@ -6,7 +6,7 @@ This is the Mod-1 project at Per Scholas, we are asked to build a multiplayer DO
 
 # Screenshots
 A screenshot of what the game looks like:
-![project screenshot]()
+![project screenshot](https://res.cloudinary.com/defqd6pxk/image/upload/v1662822356/project_screenshot_qcamsg.png)
 
 # Language/framework used:
 This is a frontend project so HTML/CSS/Javascript is used, no additional libraries/frameworks is used.
