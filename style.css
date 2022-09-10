@@ -140,3 +140,18 @@ body{
     margin: 10px 30px;
     font-size: 1.5rem;
 }
+
+.zoey-img{
+    position: absolute;
+    bottom: 2vh;
+    left: 5vh;
+}
+#reset-board{
+    margin: 0;
+    padding: 0 5px;
+    transition: 0.5s;
+}
+#reset-board:hover{
+    color: white;
+    background-color: black;
+}

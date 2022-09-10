@@ -12,9 +12,12 @@ const player1StartBtn = document.querySelector('.player1-start-game');
 const player2StartBtn = document.querySelector('.player2-start-game');
 const restartBtn = document.getElementById('restart-button');
 const continueBtn = document.getElementById('continue-button');
+const resetScoreBtn = document.getElementById('reset-board');
 const currentLevel = document.querySelector('.current-level');
 const winningMessageElement = document.querySelector('.winning-message');
 const winningMessageText = document.querySelector('.winning-message-text');
+let zoeyImg = document.getElementById('zoey-img');
+
 
 // variables:
 let level = 1;
@@ -28,6 +31,8 @@ const sliceSound = document.createElement('AUDIO');
 sliceSound.setAttribute('src', '../asset/slice.mp3');
 const bombSound = document.createElement('AUDIO');
 bombSound.setAttribute('src', '../asset/bomb.mp3');
+const pre = '../../prezoey.png';
+const post = '../../zoeypost.png';
 
 // button event listenrs
 player1StartBtn.addEventListener('click', startGame);
@@ -133,6 +138,8 @@ function sliceFruit(e) {
         }, 1000)
     }
     sliceSound.play();
+    zoeyImg.src = post;
+    setTimeout(() => zoeyImg.src = pre, 200)
     currentScore += 1;
     scoreKeeper.innerText = `Current Score: ${currentScore}`;
 }
@@ -224,3 +231,10 @@ const continuePlay = () => {
     currentLevel.innerText = `Current Level: ${level}`;
 }
 continueBtn.addEventListener('click', continuePlay)
+
+// reset scoreboard
+resetScoreBtn.addEventListener('click', () => {
+    localStorage.setItem('player1', '0');
+    localStorage.setItem('player2', '0');
+    location.reload();
+})
