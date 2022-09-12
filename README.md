@@ -1,5 +1,5 @@
 # Project: Zoey Ninja
-This is the project of a fruit ninja style game where a player can slice a randomly spawned fruit to score or a bomb to lose the game. 
+This is the project of a fruit ninja style game where a player can slice a randomly spawned fruit to score or a bomb to lose the game. Project link: https://github.com/ZOZO-coding/project-fruitNinja
 
 # Motivation
 This is the Mod-1 project at Per Scholas, we are asked to build a multiplayer DOM-based game. Since fruit ninja can involve alot of DOM manipulations, it's the main reason I choose to implement this game as my Mod-1 project.
