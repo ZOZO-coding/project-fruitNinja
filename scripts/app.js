@@ -181,8 +181,14 @@ const levelDifficult = (level) => {
     let timeInterval = 1000 - level * 100;
     spawnItemsId = setInterval(() => {
         let chance = Math.random();
-        chance >= 0.8 ? shootBombs(level) : shootFruits(1);
-        chance > 0.45 && chance < 0.5 ? shootBonusFruit() : shootFruits;
+        if (chance > 0.8) {
+            shootBombs(level);
+        } else if (chance <= 0.8) {
+            if (chance > 0.45 && chance < 0.5) {
+                shootBonusFruit();
+            }
+            shootFruits(1);
+        }
     }, timeInterval)
 }
 
